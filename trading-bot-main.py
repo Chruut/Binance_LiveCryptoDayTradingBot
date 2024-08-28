@@ -9,6 +9,7 @@ from base_functions import *
 from binance import Client
 from binance.enums import *
 
+# Read in the Strategy Statistics Table provided by MetaSignals.io
 df = pd.read_excel('MetaTable.xlsx')
 
 #Connect to Binance, not really necessary at the beginning (potentially delete this part)
