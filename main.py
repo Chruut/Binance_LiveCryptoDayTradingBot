@@ -164,7 +164,7 @@ while True:
                     
                     threed = threading.Thread(target=connection.run_binance_websocket,name = f"Thread-{signal_counter}").start() # Open a new thread
                 
-
+		    # FOLLOW THE COURSE AND IF STOP-LOSS SIGNAL IS TRIGGERED DONT CLOSE THE OPEN TRADE IMMEDIATELY, BUT RATHER WAIT FOR A PREDEFINED SHAKE OUT TIME AND IF THE SIGNAL IS THEN STILL OUTSIDE OF THE THRESHHOLD EXIT THE TRADE. 
     except KeyError:
         pass
 
