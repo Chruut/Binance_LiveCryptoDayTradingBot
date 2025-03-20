@@ -42,7 +42,7 @@ payload = {
 
 send_json_request(dws,payload)
 
-deals_accepted = [] # This list should collect all the events which have lead to a deal and then a csv file should be created in the end to save progress. Ideally one would document directly how much money was made with each trade
+deals_accepted = [] # This list should collect all the events which have lead to a deal and then a csv file is created in the end to save the financial progress. Ideally one would document directly how much money was made with each trade
 #open positions = {name of position A: Amount of cash, name of position B: Amount of cash}
 open_positions = [] # This logs the open positions and how much of the wallet is occupied
 signal_counter = 0
@@ -103,7 +103,7 @@ while True:
                 
                 # at a later time when theres also short predictions: strat = df[(df.Strategy == essence['Strategy']) & (df.TF == essence['Candle']) & (df.Direction == essence['Position']) ]
                 
-                # 4. Check whether the strategy is in Cengiz' selection of valid Strategies. If not Skip the Signal
+                # 4. CHECK WHETHER THE STRATEGY IS IN METASIGNALS SELECTION OF VALID STRATEGIES. IF NOT SKIP THE SIGNAL
                 if strat.empty: # no strat with the given combinations
                     print('No worthwhile Strategy found for the given Signal. I will skip this Signal.')
                     continue
@@ -122,7 +122,7 @@ while True:
                     print(f'Step 2. Strategy {tp_strat} was chosen. Entry Price: {entry_price}, Take Profit: {exit_price}, Position: {position}, Einsatz: {einsatz} USD')
                     
                     
-                    #5. Create the Binance Market Entry 
+                    #5. CREATE THE BINANCE MARKET ENTRY 
                     signal_counter += 1
                     
                     sümbol = str(essence['Asset']+essence['Currency'])
@@ -139,21 +139,21 @@ while True:
                     #     else:
                     #         print(f"No information found for {sümbol}.")
                     
-                    flm_quantity = round(einsatz / flm_price, price_precision)
-                    
-                            
-                    client.futures_change_leverage(symbol=sümbol, leverage=leverage)      
-
+                    flm_quantity = round(einsatz / flm_price, price_precision) # final fund size that goes into the trade
+                    client.futures_change_leverage(symbol=sümbol, leverage=leverage) # set the leverage      
+  		    
+		    # 6. TAKE FUTURES POSITION AND ENTER IT INTO BOOKKEEPING LISTS
                     open_positions[signal_counter] = client.futures_create_order(symbol=sümbol, side='BUY', type = 'LIMIT', timeInForce='GTC', price=entry_price, quantity=flm_quantity)
                     #['GTC', 'IOC', 'FOK', 'GTX', 'GTD']
                     deals_accepted[signal_counter] = open_positions[signal_counter]
-                    prof = (exit_price - entry_price)*leverage
+                    prof = (exit_price - entry_price)*leverage # calculation of profit (Remark: need to subtract trading fees)
 
                     print(open_positions[signal_counter])  
                     
                     
                     #open_positions.append({"Name":connection.name,"Position":position, "Entry":entry_price, "Exit":exit_price, "Einsatz":einsatz})
-                    
+
+		    # 7. OPEN A SHAKEOUT INSURANCE
                     #Open a Binance API connection for Stop loss if closing below Stop_loss value
                     candle = lower_except_M(essence['Candle'])
                     #print(candle, type(candle))
