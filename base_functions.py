@@ -185,58 +185,23 @@ class BinanceWebSocket:
             close_order = client.futures_create_order(symbol=self.sümbol, side='SELL', type='STOP_MARKET',stopPrice=self.entry_price)
             self.ws.close()
 
-    
+    def run_binance_websocket(self):
+        self.ws.run_forever()
         
-        #manipulated_data = manipulation(message)
-        
-        #print(f'Time until Close: {tx}, Price: {p}, Time: {t}')
-        #print(f'Closed: {c}, Close Price: {cp}, Close Time: {ct}') #Candle close yes or no
-        #print(f"Next {asset} @{candle}")
-        
-        #Check the condition you want to close the WebSocket connection based on
-        #print(manipulated_data.loc[0]['timestamp'])
-        #print(type(manipulated_data.loc[0]['BTCUSDT']))
-        
-        # if manipulated_data.loc[0]['BTCUSDT'] > 43142:
-        #     print("Closing WebSocket connection based on condition")
-        #     ws.close()  # Close the WebSocket connection
-        
-        # create limit order at stop loss
-        # if accepted make new entry in "open_positions" list
-        # start scanning and if close below limit order go out & delete list entry
-        # sell order at Take profit & delete list entry
-        
-       
-        
-        
-        #scan the prize continuously (on a minute basis?). If it touches the STOP LOSS check whether finish_candle == True.  If yes --> check when the next candle close is and then sell if it remains below. 
-        #buy_limit_order = client.futures_create_order(symbol=TRADE_SYMBOL, side='BUY', type = 'LIMIT', timeInForce='GTC, price=entry_price, quantity=trade_amount)
-        #buy_market_order = client.futures_create_order(symbol=TRADE_SYMBOL, side='BUY', type = 'MARKET', timeInForce='GTC, price=entry_price, quantity=trade_amount)
 
-        #cancel order
-        #cancel_response = client.futures_cancel_order(symbol=TRADE_SYMBOL, orderId=buy_limit_order['orderId'])
-
-        #get information on order
-        #order_info = client.futures_get_order(symbol=TRADE_SYMBOL, orderId=buy_limit_order['orderId'])
-        
-        # if finish_candle == True:
-        #     pass 
-        # MARKET EXIT
-        # sell_limit_order = client.futures_create_order(symbol=TRADE_SYMBOL, side='SELL', type='LIMIT', timeInForce='GTC', price=exit_price, quantity=trade_amount)
-
-        #STOP LOSS:
-        # sell_limit_order = client.futures_create_order(symbol=TRADE_SYMBOL, side='SELL', type='LIMIT', timeInForce='GTC', price=sl_price, quantity=trade_amount)
+def reconnect_websocket():
+    try:
+        if not dws.connected:
+            dws.connect('wss://gateway.discord.gg/?v=6&encording=json')
+            # Reinitialize connection
+    except:
+        time.sleep(5)  # Wait for new connection attempt
         
         # Doc: https://binance-docs.github.io/apidocs/futures/en/#new-order-trade 
 
         
         
-    
-    
-    def run_binance_websocket(self):
-        self.ws.run_forever()
-        
-        
+# API Key:
         
 # {'stream': 'btcusdt@kline_1m',
 # 'data':
