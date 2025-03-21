@@ -8,16 +8,10 @@ from access import discord_token, discord_channel_id, api_key, api_secret
 from base_functions import *
 from binance import Client
 from binance.enums import *
+from threading import Lock
 
 # Read in the Strategy Statistics Table provided by MetaSignals.io
 df = pd.read_excel('MetaTable.xlsx')
-
-#Connect to Binance, not really necessary at the beginning (potentially delete this part)
-# client = Client(api_key,api_secret)
-# account_data = client.get_account()      
-# USDT_balance = client.get_asset_balance(asset='USDT')
-# print(USDT_balance)
-
 
 # 1. Connect to Metasignals Discord Server
 dws = websocket.WebSocket()
@@ -42,13 +36,13 @@ payload = {
 
 send_json_request(dws,payload)
 
-deals_accepted = [] # This list should collect all the events which have lead to a deal and then a csv file is created in the end to save the financial progress. Ideally one would document directly how much money was made with each trade
+deals_accepted = {} # This list should collect all the events which have lead to a deal and then a csv file is created in the end to save the financial progress. Ideally one would document directly how much money was made with each trade
 #open positions = {name of position A: Amount of cash, name of position B: Amount of cash}
-open_positions = [] # This logs the open positions and how much of the wallet is occupied
+open_positions = {} # This logs the open positions and how much of the wallet is occupied
 signal_counter = 0
 closings = []
 print_lock = threading.Lock()
-
+position_lock = Lock()
 
 wallet_wealth = 100 #Total funds you want to play with
 
@@ -83,10 +77,15 @@ while True:
             #         }    
     
             # 3. CHECK WHETHER THERE IS ENOUGH SPACE FOR ANOTHER TRADING POSITION (<=12% OF WALLET)
-            client = Client(api_key,api_secret) #Testing the Code
-            account_data = client.get_account()
-            USDT_balance = float(client.get_asset_balance(asset='USDT')['free'])
-            
+            try:
+                client = Client(api_key, api_secret)
+                account_data = client.get_account()
+                USDT_balance = float(client.get_asset_balance(asset='USDT')['free'])
+            except BinanceAPIException as e:
+                print(f"Binance API Fehler: {e}")
+            except Exception as e:
+                print(f"Unerwarteter Fehler: {e}")
+		            
             
             percentage = sum_orders(open_positions)/USDT_balance
             print(f"Currently, you have {len(open_positions)} open positions, totaling {percentage}% of your total balance.")
