@@ -42,10 +42,17 @@ def heartbeat(interval, dws):
 		send_json_request(dws, heartbeatJSON)
 		print("Heartbeat sent")
 
-# def on_message(ws, message):
-#     message = json.loads(message)
-#     print(message['data']['k']['x'])
-  
+payload = {
+	'op': 2,
+	"d": {
+		"token": discord_token,
+		"properties": {
+			"$os": "windows",
+			"$browser": "chrome",
+			"$device": 'pc'
+		}
+	}
+}  
 def extraktion(gulasch):
     text = gulasch
     #print(text)
