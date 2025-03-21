@@ -53,6 +53,8 @@ payload = {
 		}
 	}
 }  
+
+
 def extraktion(gulasch):
     text = gulasch
     #print(text)
