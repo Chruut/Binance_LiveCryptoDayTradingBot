@@ -1,5 +1,5 @@
 # Binance Trading Bot
-Fully customizable Python script to set up a Trading Bot on Binance.com with control over Time Frame, Stop Loss, Take Profit and Leverage Strategy by utilizing MetaSignal's Prediction Tool.
+Fully customizable Python script to set up a Trading Bot on Binance.com with control over Time Frame, Stop Loss, Take Profit and Shakeout Insurance by utilizing MetaSignal's Prediction Tool and conditional Stop-Loss decisions.
 
 
 ![Metasignal_example](https://github.com/user-attachments/assets/afc86795-2929-493f-88c3-d1a64521c96a)
