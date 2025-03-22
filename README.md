@@ -10,7 +10,7 @@ An automated cryptocurrency trading bot that receives signals from MetaSignals.i
 - Automatic positioning based on strategic signals
 - Risk management through Stop-Loss and Take-Profit levels
 - Multi-threading for parallel signal processing
-- Excel-based strategy analysis
+- Excelsheet-based strategy analysis
 
 ## Prerequisites
 
