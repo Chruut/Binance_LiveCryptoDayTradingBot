@@ -23,7 +23,7 @@ An automated cryptocurrency trading bot that receives signals from MetaSignals.i
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/IhrUsername/Binance_LiveCryptoDayTradingBot.git
+git clone https://github.com/Chruut/Binance_LiveCryptoDayTradingBot.git
 cd Binance_LiveCryptoDayTradingBot
 ```
 
