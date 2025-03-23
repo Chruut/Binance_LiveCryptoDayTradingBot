@@ -2,6 +2,10 @@
 
 An automated cryptocurrency trading bot that receives signals from MetaSignals.io via Discord and automatically executes trades on Binance Futures.
 
+## Disclaimer
+
+This bot is intended for educational purposes. Cryptocurrency trading involves high risks. Use this bot at your own risk and only with funds you can afford to lose.
+
 ## Features
 
 - Automatic connection to MetaSignals.io Discord channel
@@ -55,7 +59,8 @@ python main.py
 
 ![Metasignal_example](https://github.com/user-attachments/assets/afc86795-2929-493f-88c3-d1a64521c96a)
 
-### Example of Meta Signals Strategy: Official release of their profit table
+### Example of Meta Signals Strategy
+This is an excerpt of the official release of MetaSignal's 2024 profit table
 ![grafik](https://github.com/user-attachments/assets/73ceb8a6-4553-400f-8265-ce514771da96)
 
 ## Configuration
@@ -78,6 +83,4 @@ The main configuration parameters are located in `main.py`:
 
 MIT License
 
-## Disclaimer
 
-This bot is intended for educational purposes. Cryptocurrency trading involves high risks. Use this bot at your own risk and only with funds you can afford to lose.
